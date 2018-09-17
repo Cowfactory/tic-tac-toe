@@ -8,9 +8,9 @@ var boardState;
 var gameOver;
 var playerXTurn;
 
-var gamesXWon;
-var gamesYWon;
-var gamesTied;
+var gamesXWon = 0;
+var gamesYWon = 0;
+var gamesTied = 0;
 
 /*----- cached element references -----*/
 var gameBoard; 
@@ -28,6 +28,7 @@ function initDOMReferences() {
     xTallyMsg = document.getElementById("x-gameTally");
     oTallyMsg = document.getElementById("o-gameTally");
     tieTallyMsg = document.getElementById("tie-gameTally");
+    statusMsg = document.getElementById("statusMsg");
     resetBtn = document.getElementById("reset-btn");
     restartBtn = document.getElementById("restart-btn");
 }
@@ -40,7 +41,7 @@ function initGameState() {
         [null, null, null], 
         [null, null, null]
     ];
-
+    statusMsg.textContent = "Player X's turn";
     //remove X/O pictures and textcontent from the squares
     for(let i = 0; i < gameBoard.children.length; i++) {
         if(DEBUG) gameBoard.children[i].textContent = "";
@@ -85,6 +86,23 @@ function render() {
     xTallyMsg.textContent = "Player X Games Won: " + gamesXWon;
     oTallyMsg.textContent = "Player O Games Won: " + gamesYWon; 
     tieTallyMsg.textContent = "Games Tied: " + gamesTied; 
+    //hardcoded player msg swapping
+    if(statusMsg.textContent === "Player X's turn") {
+        statusMsg.textContent = "Player O's turn";
+    } else {
+        statusMsg.textContent = "Player X's turn";
+    }
+
+    let playerName = playerXTurn ? "X" : "O";
+    if(gameOver) {
+        if(checkForTie()) {
+            statusMsg.textContent = "Game is tied!";
+        }
+        else {
+            statusMsg.textContent = "Player " + playerName + " wins!"; 
+        }
+       
+    } 
 }
 
 function checkHorizontalWin() {
@@ -167,7 +185,8 @@ document.addEventListener("DOMContentLoaded", function() {
     registerGameBoardListener();
     resetBtn.addEventListener("click", resetScores);
     restartBtn.addEventListener("click", restartGame);
-    resetScores();
+
+    restartGame();
 });
 
 function registerGameBoardListener() {
@@ -209,13 +228,15 @@ function nextMove(evt) {
 
 function restartGame(evt) {
     if(gameOver) registerGameBoardListener();
+
     initGameState();
+    // render();
 }
 
 function resetScores(evt) {
     gamesXWon = 0;
     gamesYWon = 0;
     gamesTied = 0;
-    render();
+    // render();
     restartGame();    
 }
