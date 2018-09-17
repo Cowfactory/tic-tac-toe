@@ -10,24 +10,31 @@
 <body>
     <div class="wrapper">
         <header>
-            asdf
+            <h1>Tic Tac Toe by Henry</h1>
         </header>
         <aside id="leftContent">
-            left content
+            
         </aside>
-        <main class="ttt-grid">
-            <div class="grid-item tl">1</div>
-            <div class="grid-item tm">2</div>
-            <div class="grid-item tr">3</div>
-            <div class="grid-item ml">4</div>
-            <div class="grid-item mm">5</div>
-            <div class="grid-item mr">6</div>
-            <div class="grid-item bl">7</div>
-            <div class="grid-item bm">8</div>
-            <div class="grid-item br">9</div>
+        <main id="ttt-grid">
+            <div class="grid-item" id="tl"></div>
+            <div class="grid-item" id="tm"></div>
+            <div class="grid-item" id="tr"></div>
+            <div class="grid-item" id="ml"></div>
+            <div class="grid-item" id="mm"></div>
+            <div class="grid-item" id="mr"></div>
+            <div class="grid-item" id="bl"></div>
+            <div class="grid-item" id="bm"></div>
+            <div class="grid-item" id="br"></div>
         </main>
         <aside id="rightContent">
-            right content
+            <p id="statusMsg">It is Player X's turn</p>
+            <br>
+            <p id="x-gameTally">Player X Games Won: 0</p>
+            <p id="o-gameTally">Player 0 Games Won: 0</p>
+            <p id="tie-gameTally">Games Tied: 0</p>
+            <br>
+            <button id="restart-btn" type="button">Restart Game</button>
+            <button id="reset-btn" type="button">Reset Scores</button>
         </aside>
         <footer>
             footer
